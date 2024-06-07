@@ -1,0 +1,51 @@
+-- CreateTable
+CREATE TABLE `ReactVlog` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `vlogId` INTEGER NOT NULL,
+    `createByUserId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `CommentVlog` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `content` VARCHAR(191) NULL,
+    `vlogId` INTEGER NOT NULL,
+    `createByUserId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `SaveVlog` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `vlogId` INTEGER NOT NULL,
+    `saveByUserId` INTEGER NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- AddForeignKey
+ALTER TABLE `ReactVlog` ADD CONSTRAINT `ReactVlog_vlogId_fkey` FOREIGN KEY (`vlogId`) REFERENCES `Vlog`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `ReactVlog` ADD CONSTRAINT `ReactVlog_createByUserId_fkey` FOREIGN KEY (`createByUserId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CommentVlog` ADD CONSTRAINT `CommentVlog_vlogId_fkey` FOREIGN KEY (`vlogId`) REFERENCES `Vlog`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `CommentVlog` ADD CONSTRAINT `CommentVlog_createByUserId_fkey` FOREIGN KEY (`createByUserId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SaveVlog` ADD CONSTRAINT `SaveVlog_vlogId_fkey` FOREIGN KEY (`vlogId`) REFERENCES `Vlog`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `SaveVlog` ADD CONSTRAINT `SaveVlog_saveByUserId_fkey` FOREIGN KEY (`saveByUserId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
